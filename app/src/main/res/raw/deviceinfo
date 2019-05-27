@@ -1,0 +1,20 @@
+{
+    "productKey": "",
+    "deviceName": "",
+    "productSecret": "",
+    "deviceSecret": "",
+    "subDevice": [
+      {
+          "productKey": "",
+          "deviceName": ""
+      },
+      {
+          "productKey": "",
+          "deviceName": ""
+      },
+      {
+          "productKey": "",
+          "deviceName": ""
+      }
+  ]
+}

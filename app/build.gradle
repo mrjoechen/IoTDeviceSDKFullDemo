@@ -1,0 +1,74 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.aliyun.alink.devicesdk.demo"
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+        //https://developer.android.com/studio/build/multidex#multidexkeepfile-property
+        multiDexKeepFile file('multidex-config.txt')
+    }
+    signingConfigs {
+        debug {
+            keyAlias 'IoTTestKey'
+            keyPassword 'test1234'
+            storeFile file('config/test.release.keystore.jks')
+            storePassword 'admin1234'
+        }
+
+        release {
+            keyAlias 'IoTTestKey'
+            keyPassword 'test1234'
+            storeFile file('config/test.release.keystore.jks')
+            storePassword 'admin1234'
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions{
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+}
+
+configurations.all {
+    resolutionStrategy {
+        cacheChangingModulesFor(0, 'SECONDS')
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+
+    compile('com.aliyun.alink.linksdk:iot-linkkit:1.6.5')
+
+    compile 'com.google.code.gson:gson:2.8.1'
+
+    compile 'com.aliyun.alink.linksdk:breeze:1.2.3'
+    compile 'com.aliyun.alink.linksdk:breeze-biz:1.1.0'
+    compile 'com.aliyun.alink.linksdk:breeze-ota:1.2.1'
+
+    implementation 'com.android.support:multidex:1.0.3'
+}
